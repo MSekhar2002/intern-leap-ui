@@ -1,0 +1,213 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import { NavLink } from "@/components/NavLink";
+import { Progress } from "@/components/ui/progress";
+import { 
+  BookOpen, 
+  Award, 
+  Clock, 
+  TrendingUp,
+  PlayCircle,
+  CheckCircle2,
+  Calendar
+} from "lucide-react";
+
+export default function Dashboard() {
+  const enrolledCourses = [
+    {
+      id: 1,
+      title: "Full Stack Web Development",
+      progress: 45,
+      nextLesson: "React Hooks Deep Dive",
+      totalLessons: 48,
+      completedLessons: 22,
+      lastAccessed: "2 hours ago"
+    },
+    {
+      id: 2,
+      title: "UI/UX Design Fundamentals",
+      progress: 70,
+      nextLesson: "Prototyping in Figma",
+      totalLessons: 36,
+      completedLessons: 25,
+      lastAccessed: "Yesterday"
+    }
+  ];
+
+  const stats = [
+    { label: "Courses Enrolled", value: "2", icon: BookOpen, color: "text-primary" },
+    { label: "Hours Learned", value: "87", icon: Clock, color: "text-accent" },
+    { label: "Certificates", value: "0", icon: Award, color: "text-primary-coral" },
+    { label: "Overall Progress", value: "58%", icon: TrendingUp, color: "text-primary-teal" },
+  ];
+
+  const upcomingEvents = [
+    {
+      title: "Live Q&A: React Best Practices",
+      date: "Today, 3:00 PM",
+      type: "Webinar"
+    },
+    {
+      title: "Assignment Due: Portfolio Project",
+      date: "Tomorrow, 11:59 PM",
+      type: "Deadline"
+    },
+    {
+      title: "Mentor Session: Career Guidance",
+      date: "Friday, 2:00 PM",
+      type: "Meeting"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navigation />
+
+      <main className="flex-1 pt-24 pb-16">
+        <div className="container mx-auto px-4">
+          {/* Header */}
+          <div className="mb-8 animate-fade-in">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">
+              Welcome back, <span className="bg-gradient-primary bg-clip-text text-transparent">John</span>!
+            </h1>
+            <p className="text-muted-foreground">Continue your learning journey</p>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {stats.map((stat, index) => (
+              <Card 
+                key={index}
+                className="glass hover-lift animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
+                      <p className="text-2xl font-bold">{stat.value}</p>
+                    </div>
+                    <div className={`p-3 rounded-2xl bg-secondary ${stat.color}`}>
+                      <stat.icon className="h-6 w-6" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Main Content - Courses */}
+            <div className="lg:col-span-2 space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">Continue Learning</h2>
+                <div className="space-y-4">
+                  {enrolledCourses.map((course) => (
+                    <Card key={course.id} className="glass hover-lift border-2">
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <CardTitle className="text-xl mb-2">{course.title}</CardTitle>
+                            <CardDescription>
+                              Next: {course.nextLesson}
+                            </CardDescription>
+                          </div>
+                          <Button variant="gradient" size="sm">
+                            <PlayCircle className="h-4 w-4 mr-2" />
+                            Continue
+                          </Button>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-muted-foreground">Progress</span>
+                            <span className="font-medium">{course.progress}%</span>
+                          </div>
+                          <Progress value={course.progress} className="h-2" />
+                        </div>
+                        <div className="flex items-center justify-between text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <CheckCircle2 className="h-4 w-4" />
+                            <span>{course.completedLessons}/{course.totalLessons} lessons</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{course.lastAccessed}</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              <Card className="glass border-2">
+                <CardHeader>
+                  <CardTitle>Explore More Courses</CardTitle>
+                  <CardDescription>
+                    Expand your skills with our premium internship programs
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="outline" size="lg" asChild className="w-full">
+                    <NavLink to="/courses">Browse Catalog</NavLink>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-6">
+              <Card className="glass border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    Upcoming Events
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {upcomingEvents.map((event, index) => (
+                    <div 
+                      key={index}
+                      className="p-3 rounded-xl bg-secondary/50 space-y-1 hover-lift"
+                    >
+                      <div className="font-medium text-sm">{event.title}</div>
+                      <div className="text-xs text-muted-foreground">{event.date}</div>
+                      <div className="inline-block">
+                        <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
+                          {event.type}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              <Card className="glass border-2 overflow-hidden">
+                <div className="relative p-6 text-center">
+                  <div className="absolute inset-0 bg-gradient-primary opacity-10" />
+                  <div className="relative space-y-3">
+                    <Award className="h-12 w-12 mx-auto text-primary" />
+                    <h3 className="font-bold">Complete Your First Course</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Earn your certificate and boost your career
+                    </p>
+                    <div className="pt-2">
+                      <div className="text-2xl font-bold">42%</div>
+                      <div className="text-xs text-muted-foreground">to completion</div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
