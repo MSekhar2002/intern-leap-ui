@@ -29,19 +29,21 @@ export default function Checkout() {
   const [processing, setProcessing] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<"idle" | "success" | "failed">("idle");
 
-  // Mock course data
+  // AI Workshop data
   const course = {
-    id: courseId || "1",
-    title: "Full Stack Web Development",
-    price: 9999,
-    originalPrice: 14999,
-    duration: "12 weeks",
+    id: courseId || "ai-workshop",
+    title: "AI & Machine Learning Workshop",
+    price: 2999,
+    originalPrice: 9999,
+    duration: "8 weeks",
     features: [
-      "48 video lessons",
-      "Lifetime access",
-      "Certificate of completion",
-      "Priority support",
-      "Job placement assistance"
+      "40+ hours live sessions",
+      "5 real-world AI projects",
+      "Python, TensorFlow & PyTorch",
+      "Expert mentor guidance",
+      "Industry certificate",
+      "Lifetime workshop access",
+      "AI career resources"
     ]
   };
 
@@ -103,10 +105,10 @@ export default function Checkout() {
               </div>
               <div className="flex flex-col gap-3">
                 <Button variant="gradient" size="lg" asChild>
-                  <NavLink to="/dashboard">Go to Dashboard</NavLink>
+                  <NavLink to="/workshop">View Workshop Details</NavLink>
                 </Button>
-                <Button variant="outline" onClick={() => window.print()}>
-                  Download Receipt
+                <Button variant="outline" asChild>
+                  <NavLink to="/dashboard">Go to Dashboard</NavLink>
                 </Button>
               </div>
             </CardContent>

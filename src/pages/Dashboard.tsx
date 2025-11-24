@@ -17,46 +17,37 @@ import {
 export default function Dashboard() {
   const enrolledCourses = [
     {
-      id: 1,
-      title: "Full Stack Web Development",
-      progress: 45,
-      nextLesson: "React Hooks Deep Dive",
-      totalLessons: 48,
-      completedLessons: 22,
+      id: "ai-workshop",
+      title: "AI & Machine Learning Workshop",
+      progress: 22,
+      nextLesson: "Machine Learning Basics - Classification",
+      totalLessons: 69,
+      completedLessons: 14,
       lastAccessed: "2 hours ago"
-    },
-    {
-      id: 2,
-      title: "UI/UX Design Fundamentals",
-      progress: 70,
-      nextLesson: "Prototyping in Figma",
-      totalLessons: 36,
-      completedLessons: 25,
-      lastAccessed: "Yesterday"
     }
   ];
 
   const stats = [
-    { label: "Courses Enrolled", value: "2", icon: BookOpen, color: "text-primary" },
-    { label: "Hours Learned", value: "87", icon: Clock, color: "text-accent" },
-    { label: "Certificates", value: "0", icon: Award, color: "text-primary-coral" },
-    { label: "Overall Progress", value: "58%", icon: TrendingUp, color: "text-primary-teal" },
+    { label: "Workshops Enrolled", value: "1", icon: BookOpen, color: "text-primary" },
+    { label: "Hours Learned", value: "18", icon: Clock, color: "text-accent" },
+    { label: "Projects Completed", value: "1", icon: Award, color: "text-primary-coral" },
+    { label: "Overall Progress", value: "22%", icon: TrendingUp, color: "text-primary-teal" },
   ];
 
   const upcomingEvents = [
     {
-      title: "Live Q&A: React Best Practices",
-      date: "Today, 3:00 PM",
-      type: "Webinar"
+      title: "Live Session: Deep Learning Basics",
+      date: "Today, 6:00 PM",
+      type: "Workshop"
     },
     {
-      title: "Assignment Due: Portfolio Project",
-      date: "Tomorrow, 11:59 PM",
+      title: "Project Due: Image Classifier",
+      date: "Sunday, 11:59 PM",
       type: "Deadline"
     },
     {
-      title: "Mentor Session: Career Guidance",
-      date: "Friday, 2:00 PM",
+      title: "AI Career Mentor Session",
+      date: "Wednesday, 4:00 PM",
       type: "Meeting"
     }
   ];
@@ -114,9 +105,11 @@ export default function Dashboard() {
                               Next: {course.nextLesson}
                             </CardDescription>
                           </div>
-                          <Button variant="gradient" size="sm">
-                            <PlayCircle className="h-4 w-4 mr-2" />
-                            Continue
+                          <Button variant="gradient" size="sm" asChild>
+                            <NavLink to="/workshop">
+                              <PlayCircle className="h-4 w-4 mr-2" />
+                              Continue
+                            </NavLink>
                           </Button>
                         </div>
                       </CardHeader>
@@ -146,14 +139,14 @@ export default function Dashboard() {
 
               <Card className="glass border-2">
                 <CardHeader>
-                  <CardTitle>Explore More Courses</CardTitle>
+                  <CardTitle>Recommend to Friends</CardTitle>
                   <CardDescription>
-                    Expand your skills with our premium internship programs
+                    Share the AI workshop and help others transform their career
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button variant="outline" size="lg" asChild className="w-full">
-                    <NavLink to="/courses">Browse Catalog</NavLink>
+                  <Button variant="outline" size="lg" className="w-full">
+                    Share Workshop
                   </Button>
                 </CardContent>
               </Card>
