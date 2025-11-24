@@ -19,40 +19,40 @@ export default function Landing() {
   const features = [
     {
       icon: BookOpen,
-      title: "Industry-Focused Curriculum",
-      description: "Learn skills that employers actually need with our carefully curated courses."
+      title: "Comprehensive AI Curriculum",
+      description: "Master machine learning, deep learning, neural networks, and AI applications."
     },
     {
       icon: Users,
-      title: "Expert Mentorship",
-      description: "Get guidance from industry professionals with years of real-world experience."
+      title: "Expert AI Mentors",
+      description: "Learn from experienced AI practitioners working at top tech companies."
     },
     {
       icon: Award,
-      title: "Recognized Certificates",
-      description: "Earn certificates that boost your resume and validate your expertise."
+      title: "Industry Certificate",
+      description: "Earn a recognized AI workshop certificate to showcase your expertise."
     },
     {
       icon: TrendingUp,
-      title: "Career Growth",
-      description: "Access exclusive job opportunities and fast-track your career development."
+      title: "Career-Ready Skills",
+      description: "Build real-world AI projects and prepare for AI/ML roles in the industry."
     }
   ];
 
   const benefits = [
-    "Hands-on project experience",
-    "Flexible learning schedule",
-    "Live Q&A sessions",
-    "Community support",
-    "Job placement assistance",
-    "Lifetime course access"
+    "Build 5+ AI projects",
+    "Learn Python for AI/ML",
+    "Master TensorFlow & PyTorch",
+    "Live coding sessions",
+    "AI career guidance",
+    "Lifetime workshop access"
   ];
 
   const stats = [
-    { number: "10K+", label: "Active Learners" },
-    { number: "95%", label: "Success Rate" },
-    { number: "500+", label: "Companies Hiring" },
-    { number: "4.9/5", label: "Average Rating" }
+    { number: "5K+", label: "Students Enrolled" },
+    { number: "8 Weeks", label: "Duration" },
+    { number: "Live Projects", label: "Hands-on Learning" },
+    { number: "₹2,999", label: "Special Price" }
   ];
 
   return (
@@ -71,23 +71,23 @@ export default function Landing() {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Launch Your Career with{" "}
+                Master AI & Machine Learning with{" "}
                 <span className="bg-gradient-primary bg-clip-text text-transparent">
-                  Premium Internships
+                  Expert-Led Workshop
                 </span>
               </h1>
               
               <p className="text-lg text-muted-foreground max-w-xl">
-                Join thousands of ambitious learners transforming their careers through industry-recognized 
-                internship programs. Real projects, real mentorship, real results.
+                Join our intensive AI workshop and learn cutting-edge machine learning, neural networks, 
+                and practical AI applications. Transform your career in just 8 weeks.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="gradient" size="lg" asChild className="text-base">
-                  <NavLink to="/courses">Explore Courses</NavLink>
+                  <NavLink to="/pricing">Enroll Now - ₹2,999</NavLink>
                 </Button>
                 <Button variant="outline" size="lg" asChild className="text-base">
-                  <NavLink to="/pricing">View Pricing</NavLink>
+                  <NavLink to="/courses">Learn More</NavLink>
                 </Button>
               </div>
 
@@ -120,10 +120,10 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose LearnHub?
+              Why Choose Our AI Workshop?
             </h2>
             <p className="text-lg text-muted-foreground">
-              We combine cutting-edge curriculum with practical experience to prepare you for success
+              Hands-on AI training with real-world projects and expert guidance
             </p>
           </div>
 

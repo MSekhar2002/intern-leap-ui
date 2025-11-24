@@ -6,59 +6,28 @@ import { NavLink } from "@/components/NavLink";
 import { CheckCircle2, Sparkles, Zap, Crown } from "lucide-react";
 
 export default function Pricing() {
-  const plans = [
-    {
-      name: "Starter",
-      price: "₹4,999",
-      period: "/month",
-      description: "Perfect for beginners starting their learning journey",
-      icon: Sparkles,
-      features: [
-        "1 course access",
-        "Basic mentorship",
-        "Community support",
-        "Certificate of completion",
-        "Email support",
-      ],
-      popular: false,
-      variant: "outline" as const
-    },
-    {
-      name: "Professional",
-      price: "₹9,999",
-      period: "/month",
-      description: "Most popular choice for serious learners",
-      icon: Zap,
-      features: [
-        "3 courses access",
-        "Priority mentorship",
-        "Live Q&A sessions",
-        "Professional certificates",
-        "Job placement assistance",
-        "24/7 support",
-      ],
-      popular: true,
-      variant: "gradient" as const
-    },
-    {
-      name: "Enterprise",
-      price: "₹19,999",
-      period: "/month",
-      description: "For teams and organizations",
-      icon: Crown,
-      features: [
-        "Unlimited course access",
-        "Dedicated mentor",
-        "Custom learning paths",
-        "Advanced certificates",
-        "Priority job placement",
-        "Team management tools",
-        "API access",
-      ],
-      popular: false,
-      variant: "outline" as const
-    }
-  ];
+  const workshop = {
+    name: "AI & Machine Learning Workshop",
+    price: "₹2,999",
+    originalPrice: "₹9,999",
+    period: "one-time",
+    description: "Complete AI workshop with hands-on projects and certification",
+    icon: Zap,
+    features: [
+      "8 weeks intensive training",
+      "40+ hours of live sessions",
+      "5 real-world AI projects",
+      "Python, TensorFlow & PyTorch",
+      "Neural networks & deep learning",
+      "Computer vision & NLP basics",
+      "Expert mentor guidance",
+      "Industry-recognized certificate",
+      "Lifetime workshop access",
+      "AI career resources",
+      "Community support",
+      "Job placement assistance"
+    ]
+  };
 
   const faqs = [
     {
@@ -88,71 +57,70 @@ export default function Pricing() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto space-y-4 animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold">
-              Simple, Transparent{" "}
+              Master AI for Just{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
-                Pricing
+                ₹2,999
               </span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Choose the plan that best fits your learning goals. All plans include access to our platform and community.
+              Limited time offer - 70% off! Enroll now and start your AI journey today.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Pricing Cards */}
+      {/* Pricing Card */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {plans.map((plan, index) => (
-              <Card 
-                key={index}
-                className={`relative glass hover-lift border-2 ${
-                  plan.popular ? "border-primary shadow-glow scale-105" : ""
-                } animate-fade-in`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <div className="bg-gradient-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
+          <div className="max-w-2xl mx-auto">
+            <Card className="relative glass hover-lift border-2 border-primary shadow-glow animate-fade-in">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <div className="bg-gradient-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-medium">
+                  🎉 70% OFF - Limited Time
+                </div>
+              </div>
+
+              <CardHeader className="text-center pb-8 pt-12">
+                <div className="flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-primary mx-auto mb-6">
+                  <workshop.icon className="h-8 w-8 text-primary-foreground" />
+                </div>
+                <CardTitle className="text-3xl mb-3">{workshop.name}</CardTitle>
+                <CardDescription className="text-lg">{workshop.description}</CardDescription>
+                <div className="pt-6 space-y-2">
+                  <div className="text-lg text-muted-foreground line-through">
+                    {workshop.originalPrice}
+                  </div>
+                  <div className="flex items-end justify-center gap-2">
+                    <span className="text-5xl font-bold">{workshop.price}</span>
+                    <span className="text-muted-foreground mb-2">{workshop.period}</span>
+                  </div>
+                </div>
+              </CardHeader>
+
+              <CardContent className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {workshop.features.map((feature, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+                      <span className="text-sm">{feature}</span>
                     </div>
-                  </div>
-                )}
+                  ))}
+                </div>
 
-                <CardHeader className="text-center pb-8">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-primary mx-auto mb-4">
-                    <plan.icon className="h-6 w-6 text-primary-foreground" />
-                  </div>
-                  <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <CardDescription className="text-base pt-2">{plan.description}</CardDescription>
-                  <div className="pt-4">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    <span className="text-muted-foreground">{plan.period}</span>
-                  </div>
-                </CardHeader>
+                <Button 
+                  variant="gradient" 
+                  size="lg" 
+                  className="w-full text-lg"
+                  asChild
+                >
+                  <NavLink to="/signup">Enroll Now</NavLink>
+                </Button>
 
-                <CardContent className="space-y-6">
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, fIndex) => (
-                      <li key={fIndex} className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button 
-                    variant={plan.variant} 
-                    size="lg" 
-                    className="w-full"
-                    asChild
-                  >
-                    <NavLink to="/signup">Get Started</NavLink>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                <p className="text-xs text-center text-muted-foreground">
+                  30-day money-back guarantee • Secure payment via Razorpay
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
