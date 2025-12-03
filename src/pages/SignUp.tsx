@@ -12,7 +12,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { NavLink } from "@/components/NavLink";
 import {
-  GraduationCap,
   Mail,
   Lock,
   User,
@@ -20,8 +19,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom"; // Added
+import { useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import oscowlLogo from "@/assets/oscowl-logo.png";
 
 export default function SignUp() {
   const { toast } = useToast();
@@ -99,10 +99,8 @@ export default function SignUp() {
               to="/"
               className="flex items-center gap-2 font-bold text-2xl"
             >
-              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-primary">
-                <GraduationCap className="h-7 w-7 text-primary-foreground" />
-              </div>
-              <span>LearnHub</span>
+              <img src={oscowlLogo} alt="Oscowl Learn" className="h-12 w-12 rounded-xl object-contain dark:invert" />
+              <span>Oscowl Learn</span>
             </NavLink>
 
             <div className="space-y-4">

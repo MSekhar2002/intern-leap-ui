@@ -216,7 +216,7 @@ export default function Landing() {
                   Ready to Start Your Journey?
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Join LearnHub today and take the first step towards your dream career. 
+                  Join Oscowl Learn today and take the first step towards your dream career. 
                   Limited spots available for our upcoming cohort.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
