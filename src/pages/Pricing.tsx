@@ -3,11 +3,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { NavLink } from "@/components/NavLink";
-import { CheckCircle2, Sparkles, Zap, Crown } from "lucide-react";
+import { CheckCircle2, Zap } from "lucide-react";
 
 export default function Pricing() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const loggedIn = user?.id? false : true;
+  const loggedIn = user?.id ? false : true;
 
   const workshop = {
     name: "AI & Machine Learning Workshop",
@@ -52,16 +52,20 @@ export default function Pricing() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-gradient-subtle">
-        <div className="container mx-auto px-4">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-64 h-64 rounded-full border border-foreground/5 -translate-x-1/2" />
+        <div className="absolute top-20 right-10 w-64 h-64 rounded-full border border-foreground/5 translate-x-1/2" />
+        
+        <div className="container mx-auto px-4 relative">
           <div className="text-center max-w-3xl mx-auto space-y-4 animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold">
               Master AI for Just{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
+              <span className="text-gradient">
                 ₹2,999
               </span>
             </h1>
@@ -76,16 +80,16 @@ export default function Pricing() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <Card className="relative glass hover-lift border-2 border-primary shadow-glow animate-fade-in">
+            <Card className="relative glass hover-lift border-border/50 shadow-glow animate-fade-in">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <div className="bg-gradient-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-medium">
+                <div className="bg-foreground text-background px-6 py-2 rounded-full text-sm font-medium">
                   🎉 70% OFF - Limited Time
                 </div>
               </div>
 
               <CardHeader className="text-center pb-8 pt-12">
-                <div className="flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-primary mx-auto mb-6">
-                  <workshop.icon className="h-8 w-8 text-primary-foreground" />
+                <div className="flex items-center justify-center w-16 h-16 rounded-3xl bg-secondary border border-border mx-auto mb-6">
+                  <workshop.icon className="h-8 w-8 text-foreground" />
                 </div>
                 <CardTitle className="text-3xl mb-3">{workshop.name}</CardTitle>
                 <CardDescription className="text-lg">{workshop.description}</CardDescription>
@@ -104,7 +108,7 @@ export default function Pricing() {
                 <div className="grid sm:grid-cols-2 gap-3">
                   {workshop.features.map((feature, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+                      <CheckCircle2 className="h-5 w-5 text-foreground shrink-0 mt-0.5" />
                       <span className="text-sm">{feature}</span>
                     </div>
                   ))}
@@ -116,7 +120,7 @@ export default function Pricing() {
                   className="w-full text-lg"
                   asChild
                 >
-                  <NavLink to={loggedIn?"/signup":"/courses"}>Enroll Now</NavLink>
+                  <NavLink to={loggedIn ? "/signup" : "/courses"}>Enroll Now</NavLink>
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground">
@@ -129,7 +133,7 @@ export default function Pricing() {
       </section>
 
       {/* FAQs */}
-      <section className="py-16 bg-secondary/30">
+      <section className="py-16 bg-secondary/30 border-t border-border/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">
@@ -137,7 +141,7 @@ export default function Pricing() {
             </h2>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <Card key={index} className="glass">
+                <Card key={index} className="glass border-border/50">
                   <CardHeader>
                     <CardTitle className="text-lg">{faq.question}</CardTitle>
                   </CardHeader>
@@ -152,11 +156,10 @@ export default function Pricing() {
       </section>
 
       {/* CTA */}
-      <section className="py-16">
+      <section className="py-16 border-t border-border/50">
         <div className="container mx-auto px-4">
-          <Card className="glass border-2 overflow-hidden max-w-4xl mx-auto">
+          <Card className="glass border-border/50 overflow-hidden max-w-4xl mx-auto card-glow">
             <div className="relative p-8 md:p-12 text-center">
-              <div className="absolute inset-0 bg-gradient-primary opacity-5" />
               <div className="relative space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">
                   Still Have Questions?

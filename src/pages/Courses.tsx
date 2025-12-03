@@ -1,25 +1,15 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { NavLink } from "@/components/NavLink";
-import { Search, Clock, Users, Star, Filter, CheckCircle2 } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Clock, Users, Star, CheckCircle2 } from "lucide-react";
 
 export default function Courses() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const isEnrolled = user.isEnrolled;
-  const [searchQuery, setSearchQuery] = useState("");
-  const [category, setCategory] = useState("all");
 
   const aiWorkshop = {
     id: "ai-workshop",
@@ -44,18 +34,21 @@ export default function Courses() {
     ]
   };
 
-
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-gradient-subtle">
-        <div className="container mx-auto px-4">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-64 h-64 rounded-full border border-foreground/5 -translate-x-1/2" />
+        <div className="absolute top-20 right-10 w-64 h-64 rounded-full border border-foreground/5 translate-x-1/2" />
+        
+        <div className="container mx-auto px-4 relative">
           <div className="text-center max-w-3xl mx-auto space-y-6 animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold">
               Transform Your Career with{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
+              <span className="text-gradient">
                 AI & Machine Learning
               </span>
             </h1>
@@ -70,7 +63,7 @@ export default function Courses() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <Card className="glass hover-lift overflow-hidden border-2 border-primary shadow-glow animate-fade-in">
+            <Card className="glass hover-lift overflow-hidden border-border/50 shadow-glow animate-fade-in">
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="aspect-video md:aspect-auto overflow-hidden">
                   <img 
@@ -83,11 +76,11 @@ export default function Courses() {
                 <div className="p-8 space-y-6">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-gradient-primary text-primary-foreground border-0">
+                      <Badge className="bg-foreground text-background border-0">
                         🎉 70% OFF
                       </Badge>
-                      <Badge variant="secondary">{aiWorkshop.category}</Badge>
-                      <Badge variant="outline">{aiWorkshop.level}</Badge>
+                      <Badge variant="secondary" className="bg-secondary text-foreground">{aiWorkshop.category}</Badge>
+                      <Badge variant="outline" className="border-border">{aiWorkshop.level}</Badge>
                     </div>
                     
                     <CardTitle className="text-2xl">{aiWorkshop.title}</CardTitle>
@@ -96,11 +89,11 @@ export default function Courses() {
 
                   <div className="flex items-center gap-6 text-sm">
                     <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-accent" />
+                      <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>{aiWorkshop.duration}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-accent" />
+                      <Users className="h-4 w-4 text-muted-foreground" />
                       <span>{aiWorkshop.students.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -114,7 +107,7 @@ export default function Courses() {
                     <div className="grid grid-cols-2 gap-2">
                       {aiWorkshop.highlights.map((highlight, index) => (
                         <div key={index} className="flex items-start gap-2 text-xs">
-                          <CheckCircle2 className="h-3 w-3 text-accent shrink-0 mt-0.5" />
+                          <CheckCircle2 className="h-3 w-3 text-foreground shrink-0 mt-0.5" />
                           <span>{highlight}</span>
                         </div>
                       ))}

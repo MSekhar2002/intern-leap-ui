@@ -2,108 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Oscowl Learn Design System
+   Aesthetic: Sleek, minimalist, elegant black & white
+   Inspired by the owl crescent logo - modern, premium, sophisticated
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 10%;
+    /* Dark theme inspired by logo - black background, white elements */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 10%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 10%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Primary gradient colors: indigo → teal → coral */
-    --primary: 250 60% 50%;
-    --primary-indigo: 250 60% 40%;
-    --primary-teal: 180 60% 50%;
-    --primary-coral: 10 80% 65%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary: White/off-white for the monochromatic look */
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 10% 10%;
+    /* Accent: Subtle warm white */
+    --accent: 40 10% 95%;
+    --accent-foreground: 0 0% 4%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 90%;
 
-    --accent: 180 60% 50%;
-    --accent-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 250 60% 50%;
+    --border: 0 0% 18%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 50%;
 
     --radius: 1rem;
 
-    /* Glass effect */
-    --glass-bg: 0 0% 100% / 0.7;
-    --glass-border: 240 6% 90% / 0.3;
+    /* Glass effect - dark glassmorphism */
+    --glass-bg: 0 0% 8% / 0.8;
+    --glass-border: 0 0% 100% / 0.08;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary-indigo)) 0%, hsl(var(--primary-teal)) 50%, hsl(var(--primary-coral)) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(240 5% 98%) 100%);
+    /* Gradients - subtle, elegant */
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 20%) 0%, hsl(0 0% 10%) 50%, hsl(0 0% 5%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 8%) 100%);
+    --gradient-shine: linear-gradient(135deg, hsl(0 0% 100% / 0.1) 0%, transparent 50%, hsl(0 0% 100% / 0.05) 100%);
     
-    /* Shadows */
-    --shadow-soft: 0 4px 24px -4px hsl(240 10% 10% / 0.08);
-    --shadow-elevated: 0 8px 32px -8px hsl(240 10% 10% / 0.12);
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.15);
+    /* Shadows - subtle glow effects */
+    --shadow-soft: 0 4px 24px -4px hsl(0 0% 0% / 0.5);
+    --shadow-elevated: 0 8px 32px -8px hsl(0 0% 0% / 0.7);
+    --shadow-glow: 0 0 40px hsl(0 0% 100% / 0.08);
+    --shadow-glow-lg: 0 0 80px hsl(0 0% 100% / 0.1);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
-
-  .dark {
-    --background: 240 10% 8%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 8% 12%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 8% 12%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 250 60% 60%;
-    --primary-indigo: 250 60% 50%;
-    --primary-teal: 180 60% 55%;
-    --primary-coral: 10 80% 68%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 240 6% 16%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 6% 16%;
-    --muted-foreground: 240 5% 64%;
-
-    --accent: 180 60% 55%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 240 6% 20%;
-    --input: 240 6% 20%;
-    --ring: 250 60% 60%;
-
-    /* Glass effect dark */
-    --glass-bg: 240 8% 12% / 0.7;
-    --glass-border: 240 6% 90% / 0.1;
-
-    /* Gradients dark */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary-indigo)) 0%, hsl(var(--primary-teal)) 50%, hsl(var(--primary-coral)) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(240 8% 10%) 100%);
-    
-    /* Shadows dark */
-    --shadow-soft: 0 4px 24px -4px hsl(0 0% 0% / 0.3);
-    --shadow-elevated: 0 8px 32px -8px hsl(0 0% 0% / 0.5);
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.25);
   }
 }
 
@@ -112,16 +68,30 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    color-scheme: dark;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Glass morphism utility */
+  /* Glass morphism utility - elegant dark glass */
   .glass {
     background: hsl(var(--glass-bg));
-    backdrop-filter: blur(12px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid hsl(var(--glass-border));
+  }
+
+  /* Card with subtle glow */
+  .card-glow {
+    box-shadow: var(--shadow-glow);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card-glow:hover {
+    box-shadow: var(--shadow-glow-lg);
   }
 
   /* Gradient backgrounds */
@@ -131,6 +101,20 @@ All colors MUST be HSL.
 
   .gradient-subtle {
     background: var(--gradient-subtle);
+  }
+
+  /* Shine overlay effect */
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine-effect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-shine);
+    pointer-events: none;
   }
 }
 
@@ -142,7 +126,11 @@ All colors MUST be HSL.
 
   /* Hover lift animation */
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated;
+    @apply transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .hover-lift:hover {
+    box-shadow: var(--shadow-glow);
   }
 
   /* Button press animation */
@@ -154,4 +142,54 @@ All colors MUST be HSL.
   .skeleton {
     @apply animate-pulse bg-muted rounded;
   }
+
+  /* Text gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(0 0% 70%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Border glow */
+  .border-glow {
+    border: 1px solid hsl(0 0% 100% / 0.1);
+    box-shadow: inset 0 0 20px hsl(0 0% 100% / 0.03);
+  }
+
+  /* Curved decorative element inspired by logo */
+  .crescent-left {
+    border-radius: 50%;
+    border-right: 3px solid hsl(0 0% 100% / 0.3);
+  }
+
+  .crescent-right {
+    border-radius: 50%;
+    border-left: 3px solid hsl(0 0% 100% / 0.3);
+  }
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(0 0% 8%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 25%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 0% 35%);
+}
+
+/* Selection color */
+::selection {
+  background: hsl(0 0% 100% / 0.2);
+  color: hsl(0 0% 100%);
 }

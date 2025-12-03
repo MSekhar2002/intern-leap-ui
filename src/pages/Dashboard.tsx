@@ -40,20 +40,17 @@ export default function Dashboard() {
       label: "Workshops Enrolled",
       value: "1",
       icon: BookOpen,
-      color: "text-primary",
     },
-    { label: "Hours Learned", value: "18", icon: Clock, color: "text-accent" },
+    { label: "Hours Learned", value: "18", icon: Clock },
     {
       label: "Projects Completed",
       value: "1",
       icon: Award,
-      color: "text-primary-coral",
     },
     {
       label: "Overall Progress",
       value: "22%",
       icon: TrendingUp,
-      color: "text-primary-teal",
     },
   ];
 
@@ -76,7 +73,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
 
       <main className="flex-1 pt-24 pb-16">
@@ -85,8 +82,8 @@ export default function Dashboard() {
           <div className="mb-8 animate-fade-in">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">
               Welcome back,{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
-                John
+              <span className="text-gradient">
+                {user.fullName || "John"}
               </span>
               !
             </h1>
@@ -100,7 +97,7 @@ export default function Dashboard() {
             {stats.map((stat, index) => (
               <Card
                 key={index}
-                className="glass hover-lift animate-fade-in"
+                className="glass border-border/50 hover-lift animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="pt-6">
@@ -111,10 +108,8 @@ export default function Dashboard() {
                       </p>
                       <p className="text-2xl font-bold">{stat.value}</p>
                     </div>
-                    <div
-                      className={`p-3 rounded-2xl bg-secondary ${stat.color}`}
-                    >
-                      <stat.icon className="h-6 w-6" />
+                    <div className="p-3 rounded-2xl bg-secondary border border-border">
+                      <stat.icon className="h-6 w-6 text-foreground" />
                     </div>
                   </div>
                 </CardContent>
@@ -132,7 +127,7 @@ export default function Dashboard() {
                     enrolledCourses.map((course) => (
                       <Card
                         key={course.id}
-                        className="glass hover-lift border-2"
+                        className="glass border-border/50 hover-lift"
                       >
                         <CardHeader>
                           <div className="flex items-start justify-between">
@@ -181,7 +176,7 @@ export default function Dashboard() {
                       </Card>
                     ))
                   ) : (
-                    <Card className="glass border-2">
+                    <Card className="glass border-border/50">
                       <CardContent className="pt-6 text-center">
                         <p className="text-lg mb-4">
                           You are not enrolled in any courses yet.
@@ -195,7 +190,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <Card className="glass border-2">
+              <Card className="glass border-border/50">
                 <CardHeader>
                   <CardTitle>Recommend to Friends</CardTitle>
                   <CardDescription>
@@ -212,7 +207,7 @@ export default function Dashboard() {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              <Card className="glass border-2">
+              <Card className="glass border-border/50">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Calendar className="h-5 w-5" />
@@ -223,14 +218,14 @@ export default function Dashboard() {
                   {upcomingEvents.map((event, index) => (
                     <div
                       key={index}
-                      className="p-3 rounded-xl bg-secondary/50 space-y-1 hover-lift"
+                      className="p-3 rounded-xl bg-secondary/50 space-y-1 hover-lift border border-border/50"
                     >
                       <div className="font-medium text-sm">{event.title}</div>
                       <div className="text-xs text-muted-foreground">
                         {event.date}
                       </div>
                       <div className="inline-block">
-                        <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
+                        <span className="text-xs px-2 py-1 rounded-full bg-foreground/10 text-foreground">
                           {event.type}
                         </span>
                       </div>
@@ -239,11 +234,10 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="glass border-2 overflow-hidden">
+              <Card className="glass border-border/50 overflow-hidden card-glow">
                 <div className="relative p-6 text-center">
-                  <div className="absolute inset-0 bg-gradient-primary opacity-10" />
                   <div className="relative space-y-3">
-                    <Award className="h-12 w-12 mx-auto text-primary" />
+                    <Award className="h-12 w-12 mx-auto text-foreground" />
                     <h3 className="font-bold">Complete Your First Course</h3>
                     <p className="text-sm text-muted-foreground">
                       Earn your certificate and boost your career
