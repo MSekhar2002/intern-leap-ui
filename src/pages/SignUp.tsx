@@ -78,8 +78,8 @@ export default function SignUp() {
         title: "Welcome aboard!",
         description: "Your account is ready. Check your email for next steps.",
       });
-      navigate("/dashboard"); // Added redirect
-    } catch (err) {
+      navigate("/dashboard");
+    } catch (err: any) {
       toast({
         variant: "destructive",
         title: "Error",
@@ -91,34 +91,38 @@ export default function SignUp() {
   return (
     <>
       <Navigation />
-      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-subtle">
-        <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center animate-fade-in">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-64 h-64 rounded-full border border-foreground/5 -translate-x-1/2" />
+        <div className="absolute bottom-20 right-10 w-64 h-64 rounded-full border border-foreground/5 translate-x-1/2" />
+        
+        <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center animate-fade-in relative">
           {/* Left Side - Branding */}
           <div className="hidden lg:block space-y-8">
             <NavLink
               to="/"
-              className="flex items-center gap-2 font-bold text-2xl"
+              className="flex items-center gap-3 font-bold text-2xl"
             >
-              <img src={oscowlLogo} alt="Oscowl Learn" className="h-12 w-12 rounded-xl object-contain dark:invert" />
+              <img src={oscowlLogo} alt="Oscowl Learn" className="h-12 w-12 rounded-xl object-contain" />
               <span>Oscowl Learn</span>
             </NavLink>
 
             <div className="space-y-4">
               <h1 className="text-4xl font-bold leading-tight">
                 Start Your{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">
+                <span className="text-gradient">
                   Learning Journey
                 </span>
               </h1>
               <p className="text-lg text-muted-foreground">
                 Join thousands of learners transforming their careers with
-                premium internship programs.
+                premium AI workshop programs.
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground text-sm font-bold shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-foreground flex items-center justify-center text-background text-sm font-bold shrink-0 mt-0.5">
                   1
                 </div>
                 <div>
@@ -129,7 +133,7 @@ export default function SignUp() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground text-sm font-bold shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-foreground flex items-center justify-center text-background text-sm font-bold shrink-0 mt-0.5">
                   2
                 </div>
                 <div>
@@ -140,7 +144,7 @@ export default function SignUp() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground text-sm font-bold shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-foreground flex items-center justify-center text-background text-sm font-bold shrink-0 mt-0.5">
                   3
                 </div>
                 <div>
@@ -154,7 +158,7 @@ export default function SignUp() {
           </div>
 
           {/* Right Side - Form */}
-          <Card className="glass shadow-elevated border-2 mt-14">
+          <Card className="glass border-border/50 shadow-glow mt-14">
             <CardHeader>
               <CardTitle className="text-2xl">Create Account</CardTitle>
               <CardDescription>
@@ -174,7 +178,7 @@ export default function SignUp() {
                       onChange={(e) =>
                         setFormData({ ...formData, fullName: e.target.value })
                       }
-                      className="pl-10"
+                      className="pl-10 bg-secondary border-border"
                       required
                     />
                   </div>
@@ -192,7 +196,7 @@ export default function SignUp() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="pl-10"
+                      className="pl-10 bg-secondary border-border"
                       required
                     />
                   </div>
@@ -213,7 +217,7 @@ export default function SignUp() {
                           phoneNumber: e.target.value,
                         })
                       }
-                      className="pl-10"
+                      className="pl-10 bg-secondary border-border"
                       required
                     />
                   </div>
@@ -231,7 +235,7 @@ export default function SignUp() {
                       onChange={(e) =>
                         setFormData({ ...formData, password: e.target.value })
                       }
-                      className="pl-10"
+                      className="pl-10 bg-secondary border-border"
                       required
                       minLength={8}
                     />
@@ -253,7 +257,7 @@ export default function SignUp() {
                           confirmPassword: e.target.value,
                         })
                       }
-                      className="pl-10"
+                      className="pl-10 bg-secondary border-border"
                       required
                       minLength={8}
                     />
@@ -276,11 +280,11 @@ export default function SignUp() {
                     className="text-sm text-muted-foreground leading-tight cursor-pointer"
                   >
                     I agree to the{" "}
-                    <a href="#" className="text-primary hover:underline">
+                    <a href="#" className="text-foreground hover:underline">
                       Terms of Service
                     </a>{" "}
                     and{" "}
-                    <a href="#" className="text-primary hover:underline">
+                    <a href="#" className="text-foreground hover:underline">
                       Privacy Policy
                     </a>
                   </label>
@@ -300,7 +304,7 @@ export default function SignUp() {
                   Already have an account?{" "}
                   <NavLink
                     to="/login"
-                    className="text-primary hover:underline font-medium"
+                    className="text-foreground hover:underline font-medium"
                   >
                     Log in
                   </NavLink>

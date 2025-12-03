@@ -8,12 +8,12 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <NavLink to="/" className="flex items-center gap-2 font-bold text-xl">
-              <img src={oscowlLogo} alt="Oscowl Learn" className="h-10 w-10 rounded-xl object-contain dark:invert" />
+            <NavLink to="/" className="flex items-center gap-3 font-bold text-xl">
+              <img src={oscowlLogo} alt="Oscowl Learn" className="h-10 w-10 rounded-xl object-contain" />
               <span>Oscowl Learn</span>
             </NavLink>
             <p className="text-sm text-muted-foreground">
-              Empowering the next generation of professionals through premium internship programs.
+              Empowering the next generation of professionals through premium AI workshop programs.
             </p>
           </div>
 

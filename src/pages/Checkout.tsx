@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Navigation } from "@/components/Navigation";
 import { NavLink } from "@/components/NavLink";
 import { 
-  CreditCard, 
-  Smartphone, 
   CheckCircle2, 
   AlertCircle,
   Shield,
@@ -25,7 +20,6 @@ export default function Checkout() {
   const [searchParams] = useSearchParams();
   const courseId = searchParams.get("course");
   
-  const [paymentMethod, setPaymentMethod] = useState("card");
   const [processing, setProcessing] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<"idle" | "success" | "failed">("idle");
 
@@ -84,10 +78,10 @@ export default function Checkout() {
         key: import.meta.env.VITE_APP_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: order.currency,
-        name: 'LearnHub',
+        name: 'Oscowl Learn',
         description: course.title,
         order_id: order.id,
-        handler: async (response) => {
+        handler: async (response: any) => {
           const verifyRes = await fetch(`${import.meta.env.VITE_API_URL}/api/payment/verify`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
@@ -99,7 +93,6 @@ export default function Checkout() {
           });
           const verifyData = await verifyRes.json();
           if (verifyData.success) {
-            // Update local user
             const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
             storedUser.isEnrolled = true;
             localStorage.setItem('user', JSON.stringify(storedUser));
@@ -109,12 +102,10 @@ export default function Checkout() {
             throw new Error('Payment verification failed');
           }
         },
-        theme: { color: '#3399cc' },
+        theme: { color: '#ffffff' },
       };
 
-      // const paymentObject = new window.Razorpay(options);
-      // paymentObject.open();
-    } catch (err) {
+    } catch (err: any) {
       toast({ variant: 'destructive', title: 'Error', description: err.message });
       setPaymentStatus('failed');
     } finally {
@@ -124,12 +115,12 @@ export default function Checkout() {
 
   if (paymentStatus === "success") {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-background">
         <Navigation />
         <main className="flex-1 flex items-center justify-center p-4 pt-24">
-          <Card className="glass max-w-lg w-full text-center animate-scale-in">
+          <Card className="glass border-border/50 max-w-lg w-full text-center animate-scale-in shadow-glow">
             <CardContent className="pt-12 pb-8 space-y-6">
-              <div className="flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 mx-auto">
+              <div className="flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 mx-auto">
                 <CheckCircle2 className="h-12 w-12 text-green-500" />
               </div>
               <div className="space-y-2">
@@ -138,10 +129,10 @@ export default function Checkout() {
                   Your enrollment is confirmed. A receipt has been sent to your email.
                 </p>
               </div>
-              <div className="p-4 rounded-2xl bg-secondary/50 space-y-2">
+              <div className="p-4 rounded-2xl bg-secondary/50 border border-border space-y-2">
                 <div className="text-sm text-muted-foreground">Course</div>
                 <div className="font-semibold">{course.title}</div>
-                <div className="text-2xl font-bold text-primary">₹{course.price.toLocaleString()}</div>
+                <div className="text-2xl font-bold">₹{course.price.toLocaleString()}</div>
               </div>
               <div className="flex flex-col gap-3">
                 <Button variant="gradient" size="lg" asChild>
@@ -160,12 +151,12 @@ export default function Checkout() {
 
   if (paymentStatus === "failed") {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-background">
         <Navigation />
         <main className="flex-1 flex items-center justify-center p-4 pt-24">
-          <Card className="glass max-w-lg w-full text-center animate-scale-in">
+          <Card className="glass border-border/50 max-w-lg w-full text-center animate-scale-in">
             <CardContent className="pt-12 pb-8 space-y-6">
-              <div className="flex items-center justify-center w-20 h-20 rounded-full bg-destructive/10 mx-auto">
+              <div className="flex items-center justify-center w-20 h-20 rounded-full bg-destructive/10 border border-destructive/20 mx-auto">
                 <AlertCircle className="h-12 w-12 text-destructive" />
               </div>
               <div className="space-y-2">
@@ -194,12 +185,12 @@ export default function Checkout() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-subtle">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
 
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4">
-          <Button variant="ghost" size="sm" asChild className="mb-6">
+          <Button variant="ghost" size="sm" asChild className="mb-6 text-muted-foreground hover:text-foreground">
             <NavLink to="/courses">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Courses
@@ -209,94 +200,17 @@ export default function Checkout() {
           <div className="grid lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* Payment Form */}
             <div className="lg:col-span-2 space-y-6">
-              <Card className="glass border-2 animate-fade-in">
+              <Card className="glass border-border/50 animate-fade-in">
                 <CardHeader>
                   <CardTitle className="text-2xl">Payment Details</CardTitle>
-                  <CardDescription>Choose your payment method and complete checkout</CardDescription>
+                  <CardDescription>Complete your checkout securely</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handlePayment} className="space-y-6">
-                    {/* Payment Method Selection */}
-                    <div className="space-y-3">
-                      <Label>Payment Method</Label>
-                      {/* <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
-                        <div className="flex items-center space-x-2 p-4 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer">
-                          <RadioGroupItem value="card" id="card" />
-                          <Label htmlFor="card" className="flex items-center gap-2 cursor-pointer flex-1">
-                            <CreditCard className="h-5 w-5" />
-                            <span>Credit / Debit Card</span>
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-2 p-4 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer">
-                          <RadioGroupItem value="upi" id="upi" />
-                          <Label htmlFor="upi" className="flex items-center gap-2 cursor-pointer flex-1">
-                            <Smartphone className="h-5 w-5" />
-                            <span>UPI</span>
-                          </Label>
-                        </div>
-                      </RadioGroup> */}
-                    </div>
-
-                    {/* {paymentMethod === "card" && (
-                      <div className="space-y-4 animate-fade-in">
-                        <div className="space-y-2">
-                          <Label htmlFor="cardNumber">Card Number</Label>
-                          <Input
-                            id="cardNumber"
-                            placeholder="1234 5678 9012 3456"
-                            maxLength={19}
-                            required
-                          />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="expiry">Expiry Date</Label>
-                            <Input
-                              id="expiry"
-                              placeholder="MM/YY"
-                              maxLength={5}
-                              required
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="cvv">CVV</Label>
-                            <Input
-                              id="cvv"
-                              type="password"
-                              placeholder="123"
-                              maxLength={3}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="cardName">Cardholder Name</Label>
-                          <Input
-                            id="cardName"
-                            placeholder="John Doe"
-                            required
-                          />
-                        </div>
-                      </div>
-                    )}
-
-                    {paymentMethod === "upi" && (
-                      <div className="space-y-4 animate-fade-in">
-                        <div className="space-y-2">
-                          <Label htmlFor="upiId">UPI ID</Label>
-                          <Input
-                            id="upiId"
-                            placeholder="username@upi"
-                            required
-                          />
-                        </div>
-                      </div>
-                    )} */}
-
                     {/* Razorpay Integration Note */}
-                    <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
+                    <div className="p-4 rounded-xl bg-secondary/50 border border-border">
                       <div className="flex items-start gap-3">
-                        <Shield className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <Shield className="h-5 w-5 text-foreground shrink-0 mt-0.5" />
                         <div className="space-y-1">
                           <div className="font-medium text-sm">Razorpay Integration Placeholder</div>
                           <div className="text-xs text-muted-foreground">
@@ -326,7 +240,7 @@ export default function Checkout() {
 
             {/* Order Summary */}
             <div className="space-y-6">
-              <Card className="glass border-2 sticky top-24 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <Card className="glass border-border/50 sticky top-24 animate-fade-in shadow-glow" style={{ animationDelay: "0.1s" }}>
                 <CardHeader>
                   <CardTitle>Order Summary</CardTitle>
                 </CardHeader>
@@ -334,22 +248,22 @@ export default function Checkout() {
                   <div className="space-y-3">
                     <div className="font-semibold">{course.title}</div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Badge variant="secondary">{course.duration}</Badge>
+                      <Badge variant="secondary" className="bg-secondary text-foreground">{course.duration}</Badge>
                     </div>
                   </div>
 
-                  <Separator />
+                  <Separator className="bg-border" />
 
                   <ul className="space-y-2 text-sm">
                     {course.features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-4 w-4 text-foreground shrink-0 mt-0.5" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <Separator />
+                  <Separator className="bg-border" />
 
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
@@ -360,19 +274,19 @@ export default function Checkout() {
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">Discount</span>
-                      <span className="text-green-600 font-medium">
+                      <span className="text-green-500 font-medium">
                         -₹{(course.originalPrice - course.price).toLocaleString()}
                       </span>
                     </div>
-                    <Separator />
+                    <Separator className="bg-border" />
                     <div className="flex items-center justify-between text-lg font-bold">
                       <span>Total</span>
                       <span className="text-2xl">₹{course.price.toLocaleString()}</span>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-secondary/50 text-sm text-center">
-                    <div className="font-medium text-green-600 mb-1">
+                  <div className="p-3 rounded-xl bg-secondary/50 border border-border text-sm text-center">
+                    <div className="font-medium text-green-500 mb-1">
                       🎉 Limited Time Offer
                     </div>
                     <div className="text-xs text-muted-foreground">
