@@ -18,8 +18,19 @@ import {
   Award,
   MessageSquare
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AIWorkshop() {
+
+  const navigate = useNavigate();
+
+useEffect(() => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user || !user.isEnrolled) {
+    navigate('/pricing');
+  }
+}, [navigate]);
   const modules = [
     {
       week: 1,

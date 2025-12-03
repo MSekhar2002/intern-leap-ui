@@ -4,53 +4,43 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NavLink } from "@/components/NavLink";
-import { GraduationCap, Mail, Lock, Phone, ArrowRight } from "lucide-react";
+import { GraduationCap, Mail, Lock, ArrowRight } from "lucide-react"; // Removed Phone
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Added
+import { Navigation } from "@/components/Navigation";
 
 export default function Login() {
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Added
   const [emailData, setEmailData] = useState({
     email: "",
     password: "",
     remember: false,
   });
-  const [phoneData, setPhoneData] = useState({
-    phone: "",
-    otp: "",
-  });
-  const [otpSent, setOtpSent] = useState(false);
 
-  const handleEmailLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => { // Renamed
     e.preventDefault();
-    toast({
-      title: "Welcome back!",
-      description: "You have successfully logged in.",
-    });
-    navigate("/dashboard");
-  };
-
-  const handlePhoneLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!otpSent) {
-      setOtpSent(true);
-      toast({
-        title: "OTP Sent",
-        description: "Check your phone for the verification code.",
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailData.email, password: emailData.password })
       });
-    } else {
-      toast({
-        title: "Verified!",
-        description: "Phone number verified successfully.",
-      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Login failed');
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      toast({ title: "Welcome back!", description: "You have successfully logged in." });
       navigate("/dashboard");
+    } catch (err) {
+      toast({ variant: 'destructive', title: "Error", description: err.message });
     }
   };
 
   return (
+    <>
+    <Navigation />
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-subtle">
       <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center animate-fade-in">
         {/* Left Side - Branding */}
@@ -96,14 +86,7 @@ export default function Login() {
             <CardDescription>Access your account to continue learning</CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="email" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="email">Email</TabsTrigger>
-                <TabsTrigger value="phone">Phone OTP</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="email">
-                <form onSubmit={handleEmailLogin} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <div className="relative">
@@ -159,65 +142,6 @@ export default function Login() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </form>
-              </TabsContent>
-
-              <TabsContent value="phone">
-                <form onSubmit={handlePhoneLogin} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+91 98765 43210"
-                        value={phoneData.phone}
-                        onChange={(e) => setPhoneData({ ...phoneData, phone: e.target.value })}
-                        className="pl-10"
-                        required
-                        disabled={otpSent}
-                      />
-                    </div>
-                  </div>
-
-                  {otpSent && (
-                    <div className="space-y-2 animate-fade-in">
-                      <Label htmlFor="otp">Enter OTP</Label>
-                      <Input
-                        id="otp"
-                        type="text"
-                        placeholder="123456"
-                        value={phoneData.otp}
-                        onChange={(e) => setPhoneData({ ...phoneData, otp: e.target.value })}
-                        required
-                        maxLength={6}
-                      />
-                      <p className="text-sm text-muted-foreground">
-                        Didn't receive code?{" "}
-                        <button
-                          type="button"
-                          onClick={() => {
-                            toast({
-                              title: "OTP Resent",
-                              description: "A new code has been sent to your phone.",
-                            });
-                          }}
-                          className="text-primary hover:underline"
-                        >
-                          Resend
-                        </button>
-                      </p>
-                    </div>
-                  )}
-
-                  <Button type="submit" variant="gradient" size="lg" className="w-full">
-                    {otpSent ? "Verify OTP" : "Send OTP"}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
-
             <div className="mt-6 text-center text-sm text-muted-foreground">
               Don't have an account?{" "}
               <NavLink to="/signup" className="text-primary hover:underline font-medium">
@@ -227,6 +151,6 @@ export default function Login() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </div></>
   );
 }

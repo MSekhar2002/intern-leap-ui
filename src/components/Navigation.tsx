@@ -4,9 +4,31 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Menu, X, GraduationCap } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { LogOut } from "lucide-react";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const loggedIn = user?.id? false : true;
+
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = () => {
+    // Clear everything
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    toast({
+      title: "Logged out",
+      description: "See you soon!",
+    });
+
+    // Redirect to home or login
+    navigate("/login", { replace: true });
+  };
 
   const navItems = [
     { label: "Home", path: "/" },
@@ -42,12 +64,19 @@ export function Navigation() {
 
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Button variant="ghost" size="sm" asChild>
-              <NavLink to="/login">Log in</NavLink>
-            </Button>
-            <Button variant="gradient" size="sm" asChild>
-              <NavLink to="/signup">Sign up</NavLink>
-            </Button>
+            {loggedIn ? (
+              <>
+                <Button variant="ghost" size="sm" asChild>
+                  <NavLink to="/login">Log in</NavLink>
+                </Button>
+                <Button variant="gradient" size="sm" asChild>
+                  <NavLink to="/signup">Sign up</NavLink>
+                </Button>
+              </>
+            ):(<Button variant="ghost" size="sm" onClick={handleLogout} className="w-full justify-start">
+      <LogOut className="mr-2 h-4 w-4" />
+      Logout
+    </Button>)}
           </div>
 
           {/* Mobile Navigation */}
@@ -74,6 +103,7 @@ export function Navigation() {
                     </NavLink>
                   ))}
                   <div className="pt-4 border-t border-border flex flex-col gap-2">
+                    {loggedIn?(<>
                     <Button variant="ghost" asChild className="justify-start">
                       <NavLink to="/login" onClick={() => setIsOpen(false)}>
                         Log in
@@ -83,7 +113,10 @@ export function Navigation() {
                       <NavLink to="/signup" onClick={() => setIsOpen(false)}>
                         Sign up
                       </NavLink>
-                    </Button>
+                    </Button></>):(<Button variant="ghost" size="sm" onClick={handleLogout} className="w-full justify-start">
+      <LogOut className="mr-2 h-4 w-4" />
+      Logout
+    </Button>)}
                   </div>
                 </div>
               </SheetContent>

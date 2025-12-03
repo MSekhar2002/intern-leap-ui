@@ -47,39 +47,79 @@ export default function Checkout() {
     ]
   };
 
-  const handlePayment = (e: React.FormEvent) => {
+  const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setProcessing(true);
 
-    // Simulate payment processing
-    setTimeout(() => {
-      // Razorpay integration placeholder
-      console.log("=== RAZORPAY INTEGRATION PLACEHOLDER ===");
-      console.log("Course:", course.title);
-      console.log("Amount:", course.price);
-      console.log("Payment Method:", paymentMethod);
-      console.log("Add Razorpay SDK and API integration here");
-      console.log("=====================================");
-
-      // Simulate success (90% success rate for demo)
-      const success = Math.random() > 0.1;
-      
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast({ variant: 'destructive', title: 'Error', description: 'Please log in first' });
+      navigate('/login');
       setProcessing(false);
-      if (success) {
-        setPaymentStatus("success");
-        toast({
-          title: "Payment Successful!",
-          description: "Welcome to the course. Check your email for access details.",
-        });
-      } else {
-        setPaymentStatus("failed");
-        toast({
-          title: "Payment Failed",
-          description: "Please try again or use a different payment method.",
-          variant: "destructive",
-        });
-      }
-    }, 2000);
+      return;
+    }
+
+    try {
+      // Create order
+      const orderRes = await fetch(`${import.meta.env.VITE_API_URL}/api/payment/create-order`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      });
+      const order = await orderRes.json();
+      if (!orderRes.ok) throw new Error('Failed to create order');
+
+      // Load Razorpay SDK
+      const loadRazorpay = () => new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+      });
+
+      const res = await loadRazorpay();
+      if (!res) throw new Error('Razorpay SDK failed to load');
+
+      const options = {
+        key: import.meta.env.VITE_APP_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        name: 'LearnHub',
+        description: course.title,
+        order_id: order.id,
+        handler: async (response) => {
+          const verifyRes = await fetch(`${import.meta.env.VITE_API_URL}/api/payment/verify`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }),
+          });
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            // Update local user
+            const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+            storedUser.isEnrolled = true;
+            localStorage.setItem('user', JSON.stringify(storedUser));
+            setPaymentStatus('success');
+            toast({ title: 'Payment Successful!', description: 'Welcome to the course.' });
+          } else {
+            throw new Error('Payment verification failed');
+          }
+        },
+        theme: { color: '#3399cc' },
+      };
+
+      // const paymentObject = new window.Razorpay(options);
+      // paymentObject.open();
+    } catch (err) {
+      toast({ variant: 'destructive', title: 'Error', description: err.message });
+      setPaymentStatus('failed');
+    } finally {
+      setProcessing(false);
+    }
   };
 
   if (paymentStatus === "success") {
@@ -179,7 +219,7 @@ export default function Checkout() {
                     {/* Payment Method Selection */}
                     <div className="space-y-3">
                       <Label>Payment Method</Label>
-                      <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
+                      {/* <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
                         <div className="flex items-center space-x-2 p-4 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer">
                           <RadioGroupItem value="card" id="card" />
                           <Label htmlFor="card" className="flex items-center gap-2 cursor-pointer flex-1">
@@ -194,10 +234,10 @@ export default function Checkout() {
                             <span>UPI</span>
                           </Label>
                         </div>
-                      </RadioGroup>
+                      </RadioGroup> */}
                     </div>
 
-                    {paymentMethod === "card" && (
+                    {/* {paymentMethod === "card" && (
                       <div className="space-y-4 animate-fade-in">
                         <div className="space-y-2">
                           <Label htmlFor="cardNumber">Card Number</Label>
@@ -251,7 +291,7 @@ export default function Checkout() {
                           />
                         </div>
                       </div>
-                    )}
+                    )} */}
 
                     {/* Razorpay Integration Note */}
                     <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">

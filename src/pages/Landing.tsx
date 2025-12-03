@@ -16,6 +16,9 @@ import {
 import heroImage from "@/assets/hero-learning.jpg";
 
 export default function Landing() {
+
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const loggedIn = user?.id? false : true;
   const features = [
     {
       icon: BookOpen,
@@ -172,7 +175,7 @@ export default function Landing() {
               </div>
 
               <Button variant="gradient" size="lg" asChild className="mt-6">
-                <NavLink to="/signup">Get Started Today</NavLink>
+                <NavLink to={loggedIn?"/signup":"/courses"}>Get Started Today</NavLink>
               </Button>
             </div>
 
@@ -217,9 +220,9 @@ export default function Landing() {
                   Limited spots available for our upcoming cohort.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                  <Button variant="gradient" size="lg" asChild>
+                  {loggedIn && <Button variant="gradient" size="lg" asChild>
                     <NavLink to="/signup">Create Account</NavLink>
-                  </Button>
+                  </Button>}
                   <Button variant="outline" size="lg" asChild>
                     <NavLink to="/courses">Browse Courses</NavLink>
                   </Button>

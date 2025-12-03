@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/select";
 
 export default function Courses() {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const isEnrolled = user.isEnrolled;
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("all");
 
@@ -127,8 +129,8 @@ export default function Courses() {
                       </div>
                     </div>
                     <Button variant="gradient" size="lg" className="w-full" asChild>
-                      <NavLink to={`/checkout?course=${aiWorkshop.id}`}>
-                        Enroll Now
+                      <NavLink to={isEnrolled ? '/workshop' : `/checkout?course=${aiWorkshop.id}`}>
+                        {isEnrolled ? 'Go to Workshop' : 'Enroll Now'}
                       </NavLink>
                     </Button>
                   </div>

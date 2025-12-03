@@ -6,6 +6,9 @@ import { NavLink } from "@/components/NavLink";
 import { CheckCircle2, Sparkles, Zap, Crown } from "lucide-react";
 
 export default function Pricing() {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const loggedIn = user?.id? false : true;
+
   const workshop = {
     name: "AI & Machine Learning Workshop",
     price: "₹2,999",
@@ -113,7 +116,7 @@ export default function Pricing() {
                   className="w-full text-lg"
                   asChild
                 >
-                  <NavLink to="/signup">Enroll Now</NavLink>
+                  <NavLink to={loggedIn?"/signup":"/courses"}>Enroll Now</NavLink>
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground">
