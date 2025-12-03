@@ -5,10 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { NavLink } from "@/components/NavLink";
-import { GraduationCap, Mail, Lock, ArrowRight } from "lucide-react"; // Removed Phone
+import { Mail, Lock, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom"; // Added
+import { useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import oscowlLogo from "@/assets/oscowl-logo.png";
 
 export default function Login() {
   const { toast } = useToast();
@@ -46,10 +47,8 @@ export default function Login() {
         {/* Left Side - Branding */}
         <div className="hidden lg:block space-y-8">
           <NavLink to="/" className="flex items-center gap-2 font-bold text-2xl">
-            <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-primary">
-              <GraduationCap className="h-7 w-7 text-primary-foreground" />
-            </div>
-            <span>LearnHub</span>
+            <img src={oscowlLogo} alt="Oscowl Learn" className="h-12 w-12 rounded-xl object-contain dark:invert" />
+            <span>Oscowl Learn</span>
           </NavLink>
           
           <div className="space-y-4">
@@ -68,7 +67,7 @@ export default function Login() {
             <CardContent className="pt-6">
               <blockquote className="space-y-2">
                 <p className="text-base italic">
-                  "LearnHub transformed my career. The mentorship and hands-on projects gave me 
+                  "Oscowl Learn transformed my career. The mentorship and hands-on projects gave me 
                   the confidence to land my dream job."
                 </p>
                 <footer className="text-sm text-muted-foreground">

@@ -2,11 +2,11 @@ import { useState } from "react";
 import { NavLink } from "@/components/NavLink";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { Menu, LogOut } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut } from "lucide-react";
+import oscowlLogo from "@/assets/oscowl-logo.png";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,10 +41,8 @@ export function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <NavLink to="/" className="flex items-center gap-2 font-bold text-xl">
-            <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-primary">
-              <GraduationCap className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <span className="hidden sm:inline">LearnHub</span>
+            <img src={oscowlLogo} alt="Oscowl Learn" className="h-10 w-10 rounded-xl object-contain dark:invert" />
+            <span className="hidden sm:inline">Oscowl Learn</span>
           </NavLink>
 
           {/* Desktop Navigation */}

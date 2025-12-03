@@ -1,5 +1,6 @@
 import { NavLink } from "@/components/NavLink";
-import { GraduationCap, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import oscowlLogo from "@/assets/oscowl-logo.png";
 
 export function Footer() {
   return (
@@ -8,10 +9,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <NavLink to="/" className="flex items-center gap-2 font-bold text-xl">
-              <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-primary">
-                <GraduationCap className="h-6 w-6 text-primary-foreground" />
-              </div>
-              <span>LearnHub</span>
+              <img src={oscowlLogo} alt="Oscowl Learn" className="h-10 w-10 rounded-xl object-contain dark:invert" />
+              <span>Oscowl Learn</span>
             </NavLink>
             <p className="text-sm text-muted-foreground">
               Empowering the next generation of professionals through premium internship programs.
@@ -65,7 +64,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 mt-0.5 shrink-0" />
-                <span>support@learnhub.com</span>
+                <span>support@oscowllearn.com</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0" />
@@ -80,7 +79,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} LearnHub. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Oscowl Learn. All rights reserved.</p>
         </div>
       </div>
     </footer>
